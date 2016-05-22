@@ -4,7 +4,7 @@
             <a class="navbar-brand" href="/">SimpleTODO</a>
             <ul class="nav navbar pull-md-right pull-lg-right pull-sm-right">
                 <li class="nav-item">
-                    <a *ngIf="userService.isLoggedIn()" [routerLink]="['/Logout']">Login</a>
+                    <a *ngIf="userService.isLoggedIn()" (click)="logout()">Logout</a>
                 </li>
             </ul>
         </div>

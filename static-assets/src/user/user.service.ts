@@ -1,4 +1,4 @@
-import {Injectable} from "angular2/core";
+import {Injectable, Inject} from "angular2/core";
 import {Http} from "angular2/http";
 import {SimpleTODOHeaders} from "../headers.provider";
 
@@ -6,20 +6,24 @@ import {SimpleTODOHeaders} from "../headers.provider";
 export class UserService {
     private loggedIn = false;
 
-    constructor(private http: Http, private headers: SimpleTODOHeaders) {
-        console.log("CREATED");
-    }
+    constructor(private http: Http, @Inject(SimpleTODOHeaders) private headers: SimpleTODOHeaders) {}
     
     login(username: string, password: string) {
-        return this.http.post("/api/auth/login", JSON.stringify({username, password}), {headers: this.headers.headers()})
-            .map(res => res.json())
+        return this.http.post(
+                "/api/auth/login/", "username=" + username + "&password=" + password,
+                {headers: this.headers.postHeaders()})
             .map((res) => {
-                console.log(res);
+                this.loggedIn = true;
+                return res.json;
             });
     }
 
     logout() {
-        // implement
+        this.http.get("/api/auth/logout/", {headers: this.headers.baseHeaders()})
+            .map((res) => {
+                console.log(res);
+                this.loggedIn = false
+            }).subscribe();
     }
 
     isLoggedIn() {

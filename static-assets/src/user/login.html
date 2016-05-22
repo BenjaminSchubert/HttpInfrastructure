@@ -1,4 +1,4 @@
-<form>
+<form [ngFormModel]="loginForm" (ngSubmit)="login()">
     <div class="row">
         <div class="col-md-offset-3 col-md-6" id="form">
             <div class="row">
@@ -7,18 +7,34 @@
             <div class="form-group row">
                 <label for="username" class="col-md-3 form-control-label">Username</label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" id="username" placeholder="username">
+                    <input type="text" class="form-control" id="username" required [(ngModel)]="username" ngControl="username" placeholder="username">
                 </div>
             </div>
+            <div class="row error-row" [hidden]="username_ctrl.valid || username_ctrl.pristine">
+                <div class="col-md-offset-3 col-md-9 alert alert-danger">
+                    {{ errors(username_ctrl.errors) }}
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label for="password" class="col-md-3 form-control-label">Password</label>
                 <div class="col-md-9">
-                    <input type="password" class="form-control" id="password" placeholder="password">
+                    <input type="password" class="form-control" id="password" required [(ngModel)]="password" ngControl="password" placeholder="password">
                 </div>
             </div>
+            <div class="row error-row" [hidden]="password_ctrl.valid || password_ctrl.pristine">
+                <div class="col-md-offset-3 col-md-9 alert alert-danger">
+                    {{ errors(password_ctrl.errors) }}
+                </div>
+            </div>
+
+            <div class="row error-row alert alert-danger" [hidden]="loginForm.valid || !triedSending">
+                {{ errors(loginForm.errors) }}
+            </div>
+
             <div class="form-group row">
                 <div class="col-md-offset-9 col-md-3">
-                    <button id="submit" type="submit" class="btn btn-primary">Sign in</button>
+                    <button id="submit" type="submit" class="btn btn-primary" (click)="login()" [disabled]="!loginForm.valid">Sign in</button>
                 </div>
             </div>
         </div>
