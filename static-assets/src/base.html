@@ -1,0 +1,19 @@
+<nav id="menu" class="navbar navbar-dark bg-inverse">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <a class="navbar-brand" href="/">SimpleTODO</a>
+            <ul class="nav navbar pull-md-right pull-lg-right pull-sm-right">
+                <li class="nav-item">
+                    <a *ngIf="userService.isLoggedIn()" [routerLink]="['/Logout']">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <secured-outlet></secured-outlet>
+    </div>
+</div>

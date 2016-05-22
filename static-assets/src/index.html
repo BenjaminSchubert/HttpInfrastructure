@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>SimpleTODO</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/lib/bootstrap.css">
+
+    <!-- 1. Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <script src="js/lib/es6-shim.js"></script>
+    <script src="js/lib/system-polyfills.js"></script>
+    <script src="js/lib/shims_for_IE.js"></script>
+
+    <script src="js/lib/system.src.js"></script>
+    <script src="js/lib/angular2-polyfills.js"></script>
+    <script src="js/lib/Rx.js"></script>
+    <script src="js/lib/angular2.dev.js"></script>
+    <script src="js/lib/router.dev.js"></script>
+    <script src="js/lib/http.dev.js"></script>
+    <script src="js/lib/angular2-cookie.js"></script>
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        map: {
+            simpleTODO: 'js'
+        },
+        packages: {
+            simpleTODO: {
+                main: "main",
+                defaultExtension: 'js'
+            }
+        }
+      });
+      System.import('simpleTODO')
+            .then(null, console.error.bind(console));
+    </script>
+  </head>
+
+  <!-- 3. Display the application -->
+  <body class="container-fluid">
+    <simpletodo>Loading...</simpletodo>
+  </body>
+</html>

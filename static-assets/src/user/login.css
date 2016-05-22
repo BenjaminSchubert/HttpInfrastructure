@@ -1,0 +1,23 @@
+.title {
+    text-align: center;
+    background-color: #373a3c;
+    color: #eceeef;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+#submit {
+    text-align: right;
+}
+
+#form {
+    margin-top: 5%;
+    border: 3px solid #373a3c;
+    border-radius: 10px;
+}
+
+#submit {
+    background-color: #373a3c;
+    color: #eceeef;
+}
