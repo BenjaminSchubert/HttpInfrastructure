@@ -2,7 +2,7 @@ import {Injectable, Inject} from "angular2/core";
 import {Observable} from "rxjs/Observable";
 import {AuthenticatedRequest} from "../auth/authenticatedrequest.service";
 import {Todo} from "./todo";
-import {SimpleTODOHeaders} from "../headers.provider";
+import {SimpleTODOHeaders} from "../auth/headers.provider";
 import {Response} from "angular2/http";
 import {Observer} from "rxjs/Rx";
 

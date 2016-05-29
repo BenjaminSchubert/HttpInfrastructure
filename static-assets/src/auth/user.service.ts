@@ -1,6 +1,6 @@
 import {Injectable, Inject} from "angular2/core";
 import {Http} from "angular2/http";
-import {SimpleTODOHeaders} from "../headers.provider";
+import {SimpleTODOHeaders} from "./headers.provider";
 
 @Injectable()
 export class UserService {
@@ -34,5 +34,15 @@ export class UserService {
 
     setLoggedOut() {
         this.loggedIn = false;
+    }
+
+    register(user: {username; password}) {
+        return this.http.post("/api/auth/register/", JSON.stringify(user), {headers: this.headers.jsonHeaders()})
+            .map((res) => {
+                this.loggedIn = true;
+                this.triedLocked = false;
+                return res.json;
+            });
+
     }
 }

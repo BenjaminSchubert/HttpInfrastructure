@@ -1,8 +1,8 @@
-<form [ngFormModel]="loginForm" (ngSubmit)="login()">
+<form [ngFormModel]="authForm" (ngSubmit)="login()" (keyup.enter)="login()">
     <div class="row">
         <div class="col-md-offset-3 col-md-6" id="form">
             <div class="row">
-                <h2 class="title col-md-12">Please sign in</h2>
+                <h2 class="title col-md-12">Please sign in <button type="button" class="btn btn-primary pull-md-right" (click)="register()">Register</button></h2>
             </div>
             <div class="form-group row">
                 <label for="username" class="col-md-3 form-control-label">Username</label>
@@ -10,9 +10,9 @@
                     <input type="text" class="form-control" id="username" required autofocus [(ngModel)]="username" ngControl="username" placeholder="username">
                 </div>
             </div>
-            <div class="row error-row" [hidden]="username_ctrl.valid || username_ctrl.pristine">
+            <div class="row error-row" [hidden]="usernameCtrl.valid || usernameCtrl.pristine">
                 <div class="col-md-offset-3 col-md-9 alert alert-danger">
-                    {{ errors(username_ctrl.errors) }}
+                    {{ errors(usernameCtrl.errors) }}
                 </div>
             </div>
 
@@ -22,19 +22,19 @@
                     <input type="password" class="form-control" id="password" required [(ngModel)]="password" ngControl="password" placeholder="password">
                 </div>
             </div>
-            <div class="row error-row" [hidden]="password_ctrl.valid || password_ctrl.pristine">
+            <div class="row error-row" [hidden]="passwordCtrl.valid || passwordCtrl.pristine">
                 <div class="col-md-offset-3 col-md-9 alert alert-danger">
-                    {{ errors(password_ctrl.errors) }}
+                    {{ errors(passwordCtrl.errors) }}
                 </div>
             </div>
 
-            <div class="row error-row alert alert-danger" [hidden]="loginForm.valid || !triedSending">
-                {{ errors(loginForm.errors) }}
+            <div class="row error-row alert alert-danger" [hidden]="authForm.valid || !triedSending">
+                {{ errors(authForm.errors) }}
             </div>
 
             <div class="form-group row">
                 <div class="col-md-offset-9 col-md-3">
-                    <button id="submit" type="submit" class="btn btn-primary" (click)="login()" [disabled]="!loginForm.valid">Sign in</button>
+                    <button id="submit" type="button" class="btn btn-primary pull-md-right" (click)="login()" [disabled]="!authForm.valid">Sign in</button>
                 </div>
             </div>
         </div>
