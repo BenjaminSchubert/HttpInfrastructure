@@ -1,0 +1,36 @@
+input {
+    border: none;
+    display: inline;
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+
+.form-control {
+    height: 38px;
+    overflow: hidden;
+}
+
+.selected {
+    border-color: #66afe9;
+    outline: none;
+}
+
+.listEntry {
+    background-color: #dddddd;
+    margin-right: 2%;
+    padding: 1%;
+    border-radius: 5px;
+}
+
+.listEntry > a {
+    padding-left: 2%;
+    color: black;
+    font-weight: bold;
+}
+
+.selectedEntry {
+    color: #ffffff;
+    background-color: #0275d8;
+}

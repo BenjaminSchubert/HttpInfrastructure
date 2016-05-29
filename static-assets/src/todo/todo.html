@@ -1,0 +1,46 @@
+<table class="table table-striped table-hover" (keyup.enter)="create()" (keyup.escape)="edit(none)" (dblclick)="edit(none)">
+    <thead class="thead-inverse">
+        <tr>
+            <th class="header">Todo</th>
+            <th class="header">Deadline</th>
+            <th class="header">Tags</th>
+            <th class="header">Done<label class="c-input c-checkbox pull-md-right"><input type="checkbox" (change)="hide()"><span class="c-indicator"></span></label></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td><input type="text" class="form-control" autofocus required [(ngModel)]="new_todo.content" placeholder="Todo"></td>
+            <td><input type="date" class="form-control" required [(date)]="new_todo.deadline" placeholder="Deadline"></td>
+            <td><input-list [(list)]="new_todo.tags"></input-list></td>
+            <td><button type="button" class="btn btn-primary pull-md-right" (click)="create()">Create</button></td>
+        </tr>
+
+        <tr *ngFor="let todo of todoService.todos$ | async">
+
+            <template [ngIf]="selectedTodo == todo && !(hideDone && todo.done)">
+                <td><input type="text" class="form-control" autofocus required [(ngModel)]="todo.content" placeholder="Todo"></td>
+                <td><input type="date" class="form-control" required [(date)]="todo.deadline" placeholder="Deadline"></td>
+                <td><input-list [(list)]="todo.tags"></input-list></td>
+                <td>
+                    <button type="button" class="btn btn-primary pull-md-right" (click)="update(todo)">Confirm</button>
+                    <button type="button" class="btn btn-danger pull-md-right" (click)="remove(todo)">Delete</button>
+                </td>
+            </template>
+
+            <template [ngIf]="selectedTodo != todo">
+                <td (dblclick)="edit(todo);$event.stopPropagation()" class="todo">{{ todo.content }}</td>
+                <td (dblclick)="edit(todo);$event.stopPropagation()" class="todo pull-right">{{ todo.deadline }}</td>
+                <td (dblclick)="edit(todo);$event.stopPropagation()" class="todo">
+                    <span class="tag" *ngFor="let tag of todo.tags">{{ tag }}</span>
+                </td>
+                <td>
+                    <button type="button" class="btn pull-md-right" [class.btn-danger]="todo.done === false" [class.btn-success]="todo.done === true" (click)="toggle(todo)">
+                        {{ todo.done ? "&#10004;" : "&#10007;"}}
+                    </button>
+                </td>
+            </template>
+        </tr>
+
+    </tbody>
+</table>

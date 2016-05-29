@@ -6,14 +6,15 @@ import "rxjs/Rx";
 import {CookieService} from "angular2-cookie/core";
 import {LoginComponent} from "./user/login.component";
 import {TodoComponent} from "./todo/todo.component";
-import {SecureRouterOutlet} from "./secureRouter.outlet";
 import {UserService} from "./user/user.service";
+import {AuthenticatedRequest} from "./auth/authenticatedrequest.service";
+import {TodoService} from "./todo/todo.service";
 
 
 @Component({
     selector: 'simpletodo',
-    directives: [SecureRouterOutlet, ROUTER_DIRECTIVES],
-    providers: [HTTP_PROVIDERS, ROUTER_PROVIDERS, CookieService, SimpleTODOHeaders, UserService],
+    directives: [ROUTER_DIRECTIVES],
+    providers: [HTTP_PROVIDERS, ROUTER_PROVIDERS, CookieService, SimpleTODOHeaders, UserService, AuthenticatedRequest, TodoService],
     templateUrl: './base.html'
 })
 
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit{
     ngOnInit() {
         this.router.navigate(['Todo']);
     }
-    
+
     logout() {
         this.userService.logout();
         this.router.navigate(['Login']);

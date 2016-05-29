@@ -23,6 +23,7 @@ export class LoginComponent {
             username: this.username_ctrl,
             password: this.password_ctrl
         });
+        this.userService.setLoggedOut();
     }
 
     login() {
@@ -34,7 +35,7 @@ export class LoginComponent {
     }
 
     handleError(err: any) {
-        for (let entry in err) {
+        for (let entry of err) {
             if (entry == "global") {
                 this.loginForm.setErrors({"serverError": err["global"]});
             }

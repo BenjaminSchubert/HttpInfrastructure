@@ -7,7 +7,7 @@
             <div class="form-group row">
                 <label for="username" class="col-md-3 form-control-label">Username</label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" id="username" required [(ngModel)]="username" ngControl="username" placeholder="username">
+                    <input type="text" class="form-control" id="username" required autofocus [(ngModel)]="username" ngControl="username" placeholder="username">
                 </div>
             </div>
             <div class="row error-row" [hidden]="username_ctrl.valid || username_ctrl.pristine">

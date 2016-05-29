@@ -1,0 +1,4 @@
+<div class="form-control" [ngClass]="{selected: isSelected}">
+    <span *ngFor="let entry of _list" class="listEntry" [class.selectedEntry]="entry === selectedEntry">{{ entry }} <a (click)="removeEntry(entry)">x</a></span>
+    <input [(ngModel)]="nextEntry" (focus)="setSelected()" (blur)="setUnselected()" (keydown)="typeHandler($event)" (keyup.enter)="saveLast()" type="text">
+</div>
