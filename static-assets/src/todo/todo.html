@@ -16,7 +16,7 @@
             <td><button type="button" class="btn btn-primary pull-md-right" (click)="create()">Create</button></td>
         </tr>
 
-        <tr *ngFor="let todo of todoService.todos$ | async">
+        <tr *ngFor="let todo of todoService.todos$ | async | DonePipe:filterDone">
 
             <template [ngIf]="selectedTodo == todo && !(hideDone && todo.done)">
                 <td><input type="text" class="form-control" autofocus required [(ngModel)]="todo.content" placeholder="Todo"></td>

@@ -3,17 +3,19 @@ import {TodoService} from "./todo.service";
 import {Todo} from "./todo";
 import {DateInput} from "../forms/date.directive";
 import {ListInput} from "../forms/inputlist.component";
+import {DonePipe} from "./done.pipe";
 
 @Component({
     selector: 'todo',
     templateUrl: 'todo/todo.html',
     styleUrls: ['css/todo/todo.css'],
-    directives: [DateInput, ListInput]
+    directives: [DateInput, ListInput],
+    pipes: [DonePipe]
 })
 export class TodoComponent implements OnInit {
     private new_todo = new Todo("", new Date(), []);
     private selectedTodo: Todo;
-    private hideDone: boolean = false;
+    private filterDone: boolean = false;
 
     constructor(private todoService: TodoService) {}
 
@@ -27,7 +29,7 @@ export class TodoComponent implements OnInit {
     }
     
     hide() {
-        this.hideDone = !this.hideDone;
+        this.filterDone = !this.filterDone;
     }
     
     remove(todo: Todo) {

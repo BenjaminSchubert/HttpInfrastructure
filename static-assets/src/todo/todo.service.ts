@@ -14,12 +14,16 @@ export class TodoService {
     private todos: Todo[];
     todos$: Observable<Todo[]>;
 
+    private defaultOrder: string = "deadline";
+    private defaultAsc: boolean = false;
+
     constructor (@Inject(AuthenticatedRequest) private http: AuthenticatedRequest, private headers: SimpleTODOHeaders) {
         this.todos$ = new Observable<Todo[]>(observer => this.todosObserver = observer).share();
     }
-
-    fetch() {
-        this.http.get(this.todo_url, {headers: this.headers.jsonHeaders()}).subscribe(
+    
+    fetch(orderBy: string = this.defaultOrder, asc: boolean = this.defaultAsc) {
+        let way = asc ? "" : "-";
+        this.http.get(`${this.todo_url}?ordering=${way}${orderBy}`, {headers: this.headers.jsonHeaders()}).subscribe(
             res => {
                 this.todos = <Todo[]> res;
                 this.todosObserver.next(this.todos);
