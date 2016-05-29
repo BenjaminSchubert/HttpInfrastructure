@@ -3,7 +3,7 @@ import {TodoService} from "./todo.service";
 import {Todo} from "./todo";
 import {DateInput} from "../forms/date.directive";
 import {ListInput} from "../forms/inputlist.component";
-import {DonePipe} from "./done.pipe";
+import {DonePipe} from "../pipes/boolean.pipe";
 
 @Component({
     selector: 'todo',
