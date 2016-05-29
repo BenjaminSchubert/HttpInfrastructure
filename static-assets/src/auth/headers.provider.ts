@@ -1,19 +1,22 @@
 import {Http, Headers} from "angular2/http";
-import {Inject, Injectable} from "angular2/core";
+import {Injectable} from "angular2/core";
 import {CookieService} from "angular2-cookie/core";
 
 
 @Injectable()
 export class SimpleTODOHeaders {
-    constructor(@Inject(Http) private http: Http, @Inject(CookieService) private cookies: CookieService) {
-        this.http.get("api/auth/csrf");
-    }
+    constructor(private http: Http, private cookies: CookieService) {}
 
     public baseHeaders() {
         let headers: Headers = new Headers();
+
+        if (this.cookies.get("csrftoken") == null) {
+            this.http.get("/api/auth/csrf").subscribe();
+        }
         headers.append("X-CSRFTOKEN", this.cookies.get("csrftoken"));
         return headers;
     }
+    
     public jsonHeaders() {
         let headers = this.baseHeaders();
         headers.append("Content-Type", "application/json");
