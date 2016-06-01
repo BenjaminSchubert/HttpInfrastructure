@@ -30,8 +30,10 @@ th:last-child {
 .tag {
     background-color: #dddddd;
     margin-right: 2%;
+    margin-bottom: 2%;
     padding: 2%;
     border-radius: 5px;
+    float: left;
 }
 
 
@@ -41,7 +43,7 @@ th:last-child {
 
 
 .todo {
-    padding: 19px 25px;
+    padding: 19px 12px;
 }
 
 
