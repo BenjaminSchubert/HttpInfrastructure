@@ -18,7 +18,7 @@ export class TodoComponent implements OnInit {
     private old_list: string[] = [];
 
     private selectedTodo: Todo;
-    private filterDone: boolean = false;
+    private filterDone: boolean = true;
 
     constructor(private todoService: TodoService, private cd: ChangeDetectorRef) {}
 
