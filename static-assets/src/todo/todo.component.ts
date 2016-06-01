@@ -1,4 +1,4 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy} from "angular2/core";
 import {TodoService} from "./todo.service";
 import {Todo} from "./todo";
 import {DateInput} from "../forms/date.directive";
@@ -11,21 +11,27 @@ import {DonePipe} from "../pipes/boolean.pipe";
     styleUrls: ['css/todo/todo.css'],
     directives: [DateInput, ListInput],
     pipes: [DonePipe],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoComponent implements OnInit {
     private new_todo = new Todo("", new Date(), []);
     private selectedTodo: Todo;
     private filterDone: boolean = false;
 
-    constructor(private todoService: TodoService) {}
+    constructor(private todoService: TodoService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.todoService.fetch();
     }
 
     create() {
-        this.todoService.post(this.new_todo);
-        this.new_todo = new Todo("", new Date(), []);
+        if (this.selectedTodo) {
+            this.update(this.selectedTodo);
+        }
+        else {
+            this.todoService.post(this.new_todo);
+            this.new_todo = new Todo("", new Date(), []);
+        }
     }
     
     hide() {
@@ -38,6 +44,7 @@ export class TodoComponent implements OnInit {
     
     edit(todo: Todo) {
         this.selectedTodo = todo;
+        this.cd.markForCheck();
     }
 
     update(todo: Todo) {
