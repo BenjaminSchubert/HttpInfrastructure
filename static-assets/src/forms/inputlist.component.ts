@@ -1,23 +1,29 @@
-import {Component, Input, Output, EventEmitter} from "angular2/core";
+import {Component, Input, Output, EventEmitter, ChangeDetectorRef} from "angular2/core";
 
 
 @Component({
     selector: "input-list",
     templateUrl: "forms/inputlist.html",
-    styleUrls: ["css/forms/inputlist.css"]
+    styleUrls: ["css/forms/inputlist.css"],
 })
 export class ListInput {
     isSelected: boolean = false;
     _list: string[];
+    cd: ChangeDetectorRef;
     nextEntry: string;
     selectedEntry: string = null;
     
     @Input() set list(l: string[]) {
-        this._list = l;
+        this._list = l.slice();
         this.nextEntry = "";
     }
+
+    @Input() set changeDetection(cd: ChangeDetectorRef) {
+        this.cd = cd;
+    }
+
     @Output() dateChange: EventEmitter<string[]>;
-    
+
     private setSelected() {
         this.isSelected = true;
     }
@@ -61,6 +67,10 @@ export class ListInput {
             else {
                 this.selectedEntry = null;
             }
+        }
+
+        if (this.cd) {
+            this.cd.markForCheck();
         }
     }
 

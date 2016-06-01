@@ -21,7 +21,7 @@
             <template [ngIf]="selectedTodo == todo">
                 <td><input type="text" class="form-control" autofocus required [(ngModel)]="todo.content" placeholder="Todo"></td>
                 <td><input type="date" class="form-control" required [(date)]="todo.deadline" placeholder="Deadline"></td>
-                <td><input-list [(list)]="todo.tags"></input-list></td>
+                <td><input-list [(list)]="todo.tags"  [changeDetection]="cd"></input-list></td>
                 <td>
                     <button type="button" class="btn btn-primary pull-md-right" (click)="update(todo)">Confirm</button>
                     <button type="button" class="btn btn-danger pull-md-right" (click)="remove(todo)">Delete</button>
