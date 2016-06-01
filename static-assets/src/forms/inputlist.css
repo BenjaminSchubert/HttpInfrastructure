@@ -8,8 +8,12 @@ input[type="text"]:focus {
 }
 
 .form-control {
-    height: 38px;
+    min-height: 38px;
     overflow: hidden;
+}
+
+.form-control span {
+    white-space: nowrap;
 }
 
 .selected {
@@ -20,8 +24,10 @@ input[type="text"]:focus {
 .listEntry {
     background-color: #dddddd;
     margin-right: 2%;
+    margin-bottom: 2%;
     padding: 1%;
     border-radius: 5px;
+    float: left;
 }
 
 .listEntry > a {
@@ -33,4 +39,9 @@ input[type="text"]:focus {
 .selectedEntry {
     color: #ffffff;
     background-color: #0275d8;
+}
+
+
+input[type=text] {
+    width: 100%;
 }

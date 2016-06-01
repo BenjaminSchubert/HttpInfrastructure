@@ -4,7 +4,7 @@
             <th class="header">Todo</th>
             <th class="header">Deadline</th>
             <th class="header">Tags</th>
-            <th class="header">Done<label class="c-input c-checkbox pull-md-right"><input type="checkbox" (change)="hide()"><span class="c-indicator"></span></label></th>
+            <th class="header done">Done<label class="c-input c-checkbox"><input type="checkbox" (change)="hide()"><span class="c-indicator"></span></label></th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
 
         <tr *ngFor="let todo of todoService.todos$ | async | DonePipe:'done':filterDone">
 
-            <template [ngIf]="selectedTodo == todo && !(hideDone && todo.done)">
+            <template [ngIf]="selectedTodo == todo">
                 <td><input type="text" class="form-control" autofocus required [(ngModel)]="todo.content" placeholder="Todo"></td>
                 <td><input type="date" class="form-control" required [(date)]="todo.deadline" placeholder="Deadline"></td>
                 <td><input-list [(list)]="todo.tags"></input-list></td>

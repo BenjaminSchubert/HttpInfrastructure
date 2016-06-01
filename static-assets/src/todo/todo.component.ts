@@ -10,7 +10,7 @@ import {DonePipe} from "../pipes/boolean.pipe";
     templateUrl: 'todo/todo.html',
     styleUrls: ['css/todo/todo.css'],
     directives: [DateInput, ListInput],
-    pipes: [DonePipe]
+    pipes: [DonePipe],
 })
 export class TodoComponent implements OnInit {
     private new_todo = new Todo("", new Date(), []);
