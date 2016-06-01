@@ -5,7 +5,7 @@ import {Input, Output, EventEmitter, Directive} from "angular2/core";
     selector: 'input[type=date]',
     host: {
         '[value]': '_date',
-        '(change)':'onDateChange($event.target.value)'
+        '(change)': 'onDateChange($event.target.value)'
     }
 })
 export class DateInput{

@@ -15,6 +15,8 @@ import {DonePipe} from "../pipes/boolean.pipe";
 })
 export class TodoComponent implements OnInit {
     private new_todo = new Todo("", new Date(), []);
+    private old_list: string[] = [];
+
     private selectedTodo: Todo;
     private filterDone: boolean = false;
 
@@ -43,6 +45,13 @@ export class TodoComponent implements OnInit {
     }
     
     edit(todo: Todo) {
+        if (todo == null) {
+            this.selectedTodo.tags = this.old_list;
+        }
+        else {
+            this.old_list = todo.tags.slice(0);
+        }
+
         this.selectedTodo = todo;
         this.cd.markForCheck();
     }

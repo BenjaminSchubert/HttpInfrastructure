@@ -1,28 +1,46 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectorRef} from "angular2/core";
+import {Component, Input, ChangeDetectorRef, forwardRef, Provider} from "angular2/core";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "angular2/common";
+
+
+const LIST_INPUT_VALUE_ACCESSOR = new Provider(
+  NG_VALUE_ACCESSOR, {
+    useExisting: forwardRef(() => ListInput),
+    multi: true
+  });
 
 
 @Component({
     selector: "input-list",
     templateUrl: "forms/inputlist.html",
     styleUrls: ["css/forms/inputlist.css"],
+    providers: [LIST_INPUT_VALUE_ACCESSOR]
+
 })
-export class ListInput {
+export class ListInput implements ControlValueAccessor {
     isSelected: boolean = false;
-    _list: string[];
+    _list: string[] = [];
     cd: ChangeDetectorRef;
-    nextEntry: string;
+    nextEntry: string = "";
     selectedEntry: string = null;
+
+    private _onChangeCallback: (list: string[]) => void = (_) => {};
+    private _onTouchedCallback: (list: string[]) => void = (_) => {};
     
-    @Input() set list(l: string[]) {
-        this._list = l.slice();
-        this.nextEntry = "";
+    writeValue(list: string[]): void {
+        this._list = list;
+    }
+
+    registerOnChange(func: (list: string[]) => void): void {
+        this._onChangeCallback = func;
+    }
+
+    registerOnTouched(func: (list: string[]) => void): void {
+        this._onTouchedCallback = func;
     }
 
     @Input() set changeDetection(cd: ChangeDetectorRef) {
         this.cd = cd;
     }
-
-    @Output() dateChange: EventEmitter<string[]>;
 
     private setSelected() {
         this.isSelected = true;
@@ -76,12 +94,14 @@ export class ListInput {
 
     private removeEntry(entry: string) {
         this._list.splice(this._list.indexOf(entry), 1);
+        this._onChangeCallback(this._list);
     }
 
     private saveLast() {
         if (this.nextEntry != "") {
             this._list.push(this.nextEntry);
             this.nextEntry = "";
+            this._onChangeCallback(this._list);
         }
     }
 }
